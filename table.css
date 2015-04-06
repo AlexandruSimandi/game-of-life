@@ -1,0 +1,34 @@
+div{
+	position: absolute;
+	display: inline-block;
+	right: 100px;
+	float: right;
+}
+
+
+.button span{
+    background-color: #E8E8E8;
+
+    display: inline-block;
+    padding: 10px 40px 10px 40px;
+
+    color: #3A474D;
+    text-transform: uppercase;
+    font-family: 'TradeGothicLTStd-BdCn20','PT Sans Narrow';
+    font-weight: 100;
+    font-size: 10px;
+
+    text-shadow: 0px 1px #fff, 0px -1px #262F33;
+}
+
+.button span:hover {
+    color: #AEBF3B;
+    text-shadow: 0px -1px #97A63A;
+    cursor: pointer;
+}
+
+#main {
+    margin-left: 40px;
+    margin-right: 40px;
+    float: left;
+}
