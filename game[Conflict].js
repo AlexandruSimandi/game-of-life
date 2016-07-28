@@ -5,14 +5,17 @@ var UIModule = (function (){
         if(e.keyCode == 13){
             if(gameModule.isRunning() == false){
                 _setContent('status',"Game is running");
+                _setContent('started',"Press enter to pause")
+                _setContent('Restart',"Restart")
                 gameModule.run();
             }else {
                 _setContent('status',"Game is paused");
+                _setContent('started',"Press enter to resume");
                 gameModule.pause();
             }
         }
     }
-    
+
     function _setContent(wrapper,text){
         document.getElementById(wrapper).innerHTML = text;
     }
@@ -39,7 +42,11 @@ var UIModule = (function (){
         initialize: function(){
             window.addEventListener("keydown",enterPressed,false);
             document.getElementById("Acorn").addEventListener("mousedown",gameModule.makeAcorn,false);
+            document.getElementById("Restart").addEventListener("mousedown",gameModule.restart,false);
             gameModule.getCanvas().addEventListener("mousedown",_clickCell,false);
+        },
+        getContent(wrapper){
+            return  document.getElementById(wrapper).innerHTML;
         }
     };
 
@@ -111,9 +118,29 @@ var gameModule  = (function () {
     function _paintCanvas(){
         for(var i = 0; i < _dimension; i++){
             for(var j = 0; j < _dimension; j++){
-                if(_changes[i][j])
-                _drawCell(i*_cellDiameter+1,j*_cellDiameter+1,_cellDiameter,_world[i][j]);
+                if(_changes[i][j]){
+                    _drawCell(i*_cellDiameter+1,j*_cellDiameter+1,_cellDiameter,_world[i][j]);
+                }
             }
+        }
+    }
+
+
+    //paints #dimension vertical lines and #dimension horizontal lines
+    function _paintFirstTime(){
+
+        _canvasDraw.clearRect(0,0,_canvasWidth,_canvasHeight);
+
+        for(var i = 0; i < _dimension; i++){
+            _canvasDraw.beginPath();
+            _canvasDraw.moveTo(i*_cellDiameter+1,0);
+            _canvasDraw.lineTo(i*_cellDiameter+1,_canvasHeight);
+            _canvasDraw.stroke();
+
+            _canvasDraw.beginPath();
+            _canvasDraw.moveTo(0,i*_cellDiameter+1);
+            _canvasDraw.lineTo(_canvasWidth,i*_cellDiameter+1);
+            _canvasDraw.stroke();
         }
     }
 
@@ -121,6 +148,7 @@ var gameModule  = (function () {
 
 
     //places "acorn" shape on screen
+    //TODO make nicer
     function _makeAcorn() {
         var middle = parseInt(_dimension/2);
         _world[middle][middle] = true;
@@ -152,6 +180,8 @@ var gameModule  = (function () {
                         }
                     } else if(lifeScore == 3) {
                         worldTemp[i][j] = true;
+                    }else {
+                       worldTemp[i][j] = false;
                     }
                     if(_world[i][j] != worldTemp[i][j]){
                         _changes[i][j] = true;
@@ -162,6 +192,20 @@ var gameModule  = (function () {
             _world = worldTemp;
             _paintCanvas();
             var x = setTimeout(function() {_playGeneration();}, 1);
+        }
+    }
+
+    function _resetGame(){
+        _dimension = parseInt(window.prompt("enter matrix size"));
+            _cellDiameter = _canvasWidth/(_dimension + _cellMargin);
+
+            for(var i = 0; i < _dimension; i++){
+                    _world[i] = [];
+                    _changes[i] = [];
+                    for(var j = 0; j < _dimension; j++){
+                        _world[i][j] = false;
+                        _changes[i][j] = false;
+                    }
         }
     }
 
@@ -194,15 +238,15 @@ var gameModule  = (function () {
                     _changes[i] = [];
                     for(var j = 0; j < _dimension; j++){
                         _world[i][j] = false;
-                        _changes[i][j] = true;
+                        _changes[i][j] = false;
                     }
                 }
 
                 _gameRunning = false;
 
                 //builds first time every cell
-                _paintCanvas();
-
+                //_paintCanvas();
+                _paintFirstTime();
 
 
 
@@ -217,6 +261,12 @@ var gameModule  = (function () {
             _gameRunning = false;
 
         },
+        restart: function(){
+            _gameRunning = false;
+            _resetGame();
+            _paintFirstTime();
+
+        },
         isRunning: function(){
             return _gameRunning;
         },
@@ -229,14 +279,16 @@ var gameModule  = (function () {
         drawCell: function(i,j){
             if(_world[i][j]){
                 _world[i][j] = false;
-            } else _world[i][j] = true;
+            } else {
+                _world[i][j] = true;
+            }
             _drawCell(i*_cellDiameter+1,j*_cellDiameter+1,_cellDiameter,_world[i][j]);
         },
         getCanvas: function(){
             return _canvas;
         },
         getCellDiameter: function(){
-            return _cellDiameter;   
+            return _cellDiameter;
         }
 
     };

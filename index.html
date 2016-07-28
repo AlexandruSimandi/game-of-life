@@ -2,25 +2,31 @@
 <html>
 <head>
 	<title>Game of life</title>
-	<!--<script src="jquery-2.1.3.min.js"></script>-->
-	<!--<script src="game.js"></script> -->
 	<script type="text/javascript"  src="game.js"></script>
 	<link rel="stylesheet" type="text/css" href="table.css"/>
 </head>
 <body>
-	<canvas width='600px' height='600px' id="main"></canvas>
-	<div >
-		<h1>Click on the cells to make them alive</h1>
-		<h1 id="started">Press Enter to start game</h1>
-		<h1 id="status">Game is paused</h1>
-		<button type="button" id="Restart" class="button"  onclick="restartGame();" ><span>Restart</span></button>
-		<button  type="button" id="Randomize" class="button"  onclick="placeRandomCells();"><span>Place random cells</span></button>
-		<h2>Patterns</h2>
-		<button type="button" id="Walker" class="button" onclick="makeWalker();"><span>Walker</span></button>
-		<button type="button" id="Acorn" class="button" ><span>Acorn</span></button>
-		<button type="button" id="Pulsar" class="button" onclick="makePulsar();"><span>Pulsar</span></button>
-		<button type="button" id="Gun" class="button" onclick="makeGun();"><span>Gun</span></button>
-		<h2 id="generations"></h2>
-	</div>
+    <div id="maincontainer">
+        <div id="info">
+            <h1>Enter value and press start to generate world</h1>
+            <h1 id="started">Press Enter to start game</h1>
+            <h1 id="status">Game is paused</h1>
+            <button type="button" id="Restart" class="button"><span>Start</span></button>
+            <input type="text" id="dimension" value="120">
+            <h1>Patterns</h1>
+            <button type="button" id="Walker" class="button"><span>Walker</span></button>
+            <button type="button" id="Acorn" class="button" ><span>Acorn</span></button>
+            <button type="button" id="Engine" class="button"><span>Engine</span></button>
+            <button type="button" id="Gun" class="button"><span>Gun</span></button>
+            <h2 id="generations"></h2>
+        </div>
+        <canvas width='655px' height='655px' id="main"></canvas>
+    </div>
+
+    <div id="footer-wrap">
+        <div class="container">
+       		{footer}
+        </div><!-- end container -->
+    </div><!-- end footer-wrap -->
 </body>
 </html>

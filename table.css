@@ -1,34 +1,53 @@
-div{
-	position: absolute;
-	display: inline-block;
-	right: 100px;
-	float: right;
+@import url(http://fonts.googleapis.com/css?family=Playball);
+@import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
+
+#maincontainer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
 }
 
-
-.button span{
-    background-color: #E8E8E8;
-
-    display: inline-block;
-    padding: 10px 40px 10px 40px;
-
-    color: #3A474D;
-    text-transform: uppercase;
-    font-family: 'TradeGothicLTStd-BdCn20','PT Sans Narrow';
-    font-weight: 100;
-    font-size: 10px;
-
-    text-shadow: 0px 1px #fff, 0px -1px #262F33;
+#info{
+    width: 380px;
+    padding: 30px;
+    background-color: #d5e8ff;
+    float: right;
+    margin-left: 5px;
 }
 
-.button span:hover {
-    color: #AEBF3B;
-    text-shadow: 0px -1px #97A63A;
-    cursor: pointer;
+h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
 }
+
+button {
+
+    width: 200px;
+    height: 40px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+
+}
+
 
 #main {
-    margin-left: 40px;
-    margin-right: 40px;
     float: left;
+    margin-right: 0;
+}
+
+@media (max-width: 1200px){
+    #maincontainer {
+         width: 100%;
+    }
+    #main{
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #info{
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
