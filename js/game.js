@@ -497,7 +497,7 @@ var gameModule  = (function () {
             _paintCanvas(_newChanges);
             _randomizeColor();
 
-            var x = setTimeout(function() {_playGeneration();}, 16);
+            var x = setTimeout(function() {_playGeneration();}, 0);
 
         }
     }
