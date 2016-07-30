@@ -11,7 +11,6 @@
 	<script type="text/javascript" src="js/game.js"></script>
 </head>
 <body>
-    <div class="">
     	<div class="row">
     		<div class="col l7">
 				<canvas width='1200px' height="1200px" id="main"></canvas>
@@ -22,8 +21,13 @@
 				<h5 id="status">Game is paused</h5>
 				<div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Try changing world size for different results (try no more than 10000)">
           			<input id="dimension" placeholder="Enter a number for grid size" id="first_name" type="text" value="120">
-          			<label for="first_name">Grid size</label>
+          			<label for="grid_size">Grid size</label>
        			</div>
+                <div class="clearfix"></div>
+                <p class="range-field col s6">
+                    <label for="game_speed">Game speed</label>
+                    <input type="range" id="game-speed" min="0" max="1000" value="900" />
+                </p>
        			<div class="clearfix"></div>
 				<button type="button" id="Restart" class="btn">Generate new world</button>
 				<button type="button" id="pause" class="btn">Start</button>
@@ -32,9 +36,7 @@
 				<button type="button" id="Acorn" class="btn" >Acorn</button>
 				<button type="button" id="Engine" class="btn">Engine</button>
 				<button type="button" id="Gun" class="btn">Gun</button>
-				<h5 id="generations"></h5>
     		</div>
     	</div>
-    </div>
 </body>
 </html>

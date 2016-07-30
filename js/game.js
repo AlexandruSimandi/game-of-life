@@ -6,6 +6,21 @@ future ideas:
 
 var UIModule = (function (){
 
+    function _changeSpeed(){
+        var range = _getContent('game-speed');
+
+        var speed = 1000 - range.value;
+
+        if(gameModule.isRunning()){
+            gameModule.pause();
+            gameModule.setGameSpeed(speed);
+            gameModule.run();
+        } else {
+            gameModule.setGameSpeed(speed);
+        }
+        Materialize.toast('game speed changed to ' + range.value, 1500);
+    }
+
 	function _pause(){
 		if(gameModule.isRunning() == false){
 			_setContent('status',"Game is running");
@@ -13,7 +28,7 @@ var UIModule = (function (){
 			_setContent('pause', 'Pause');
 			gameModule.run();
 			Materialize.toast('game running', 1000);
-		}else {
+		} else {
 			_setContent('status',"Game is paused");
 			_setContent('started',"Press Enter to resume");
 			_setContent('pause', 'resume')
@@ -72,8 +87,8 @@ var UIModule = (function (){
             _getContent("Gun").addEventListener("mousedown",gameModule.makeGun, false);
             _getContent("Engine").addEventListener("mousedown",gameModule.makeEngine, false);
             _getContent("Restart").addEventListener("mousedown", _restart, false);
-
 			_getContent('pause').addEventListener('mousedown', _pause, false);
+            _getContent('game-speed').addEventListener('mouseup', _changeSpeed, false);
             gameModule.getCanvas().addEventListener("mousedown",_clickCell,false);
         },
         getContent: function(wrapper){
@@ -137,6 +152,9 @@ var gameModule  = (function () {
     var _gameRunning;
 
     var _currentColor;
+
+    var _gameSpeed = 100;
+    var _interval
 
 
     function _getRed(color){
@@ -466,8 +484,6 @@ var gameModule  = (function () {
 
     //looping function that computes and renders next generation in game, stops/stars running based on bool gameRunning modified by enterPressed
     function _playGeneration(){
-        if(_gameRunning){
-
             _changes = hashModule.getArr();
 
             var _newChanges = [];
@@ -513,9 +529,6 @@ var gameModule  = (function () {
             _paintCanvas(_newChanges);
             _randomizeColor();
 
-            var x = setTimeout(function() {_playGeneration();}, 0);
-
-        }
     }
 
     function _resetGame(){
@@ -562,15 +575,17 @@ var gameModule  = (function () {
         },
         run: function (){
             _gameRunning = true;
-
-            _playGeneration();
+            _interval = setInterval(function(){
+                _playGeneration();
+            }, _gameSpeed);
         },
         pause: function(){
             _gameRunning = false;
-
+            clearInterval(_interval);
         },
         restart: function(){
             _gameRunning = false;
+            clearInterval(_interval);
             _resetGame();
             _paintFirstTime();
 			Materialize.toast('new world generated', 1000);
@@ -608,8 +623,10 @@ var gameModule  = (function () {
         },
         getCellDiameter: function(){
             return _cellDiameter;
+        },
+        setGameSpeed: function(gameSpeed){
+            _gameSpeed = gameSpeed;
         }
-
     };
 
 })();
