@@ -2,26 +2,39 @@
 <html>
 <head>
 	<title>Game of life</title>
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 	<script type="text/javascript" src="js/game.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/index.css"/>
 </head>
 <body>
-    <div id="maincontainer">
-        <div id="info">
-            <h1>Enter value and press start to generate world</h1>
-            <h1 id="started">Press Enter to start game</h1>
-            <h1 id="status">Game is paused</h1>
-            <button type="button" id="Restart" class="button"><span>Start</span></button>
-            <input type="text" id="dimension" value="120">
-            <h1>Patterns</h1>
-            <button type="button" id="Walker" class="button"><span>Walker</span></button>
-            <button type="button" id="Acorn" class="button" ><span>Acorn</span></button>
-            <button type="button" id="Engine" class="button"><span>Engine</span></button>
-            <button type="button" id="Gun" class="button"><span>Gun</span></button>
-            <h2 id="generations"></h2>
-        </div>
-        <canvas width='655px' height='655px' id="main"></canvas>
+    <div class="">
+    	<div class="row">
+    		<div class="col l7">
+				<canvas width='1200px' height="1200px" id="main"></canvas>
+    		</div>
+    		<div class="col l5">
+				<h5>Enter grid size and press generate new world</h5>
+				<h5 id="started">Press Enter to start game</h5>
+				<h5 id="status">Game is paused</h5>
+				<div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Try changing world size for different results (try no more than 10000)">
+          			<input id="dimension" placeholder="Enter a number for grid size" id="first_name" type="text" value="120">
+          			<label for="first_name">Grid size</label>
+       			</div>
+       			<div class="clearfix"></div>
+				<button type="button" id="Restart" class="btn">Generate new world</button>
+				<button type="button" id="pause" class="btn">Start</button>
+				<h5>Place patterns in the center</h5>
+				<button type="button" id="Walker" class="btn">Walker</button>
+				<button type="button" id="Acorn" class="btn" >Acorn</button>
+				<button type="button" id="Engine" class="btn">Engine</button>
+				<button type="button" id="Gun" class="btn">Gun</button>
+				<h5 id="generations"></h5>
+    		</div>
+    	</div>
     </div>
 </body>
 </html>

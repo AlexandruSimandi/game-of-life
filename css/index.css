@@ -1,53 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Playball);
-@import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
-
-#maincontainer {
-    margin-left: auto;
-    margin-right: auto;
-    width: 1200px;
-}
-
-#info{
-    width: 380px;
-    padding: 30px;
-    background-color: #d5e8ff;
-    float: right;
-    margin-left: 5px;
-}
-
-h1 {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 20px;
-}
-
-button {
-
-    width: 200px;
-    height: 40px;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 16px;
-
-}
-
-
 #main {
-    float: left;
-    margin-right: 0;
-}
-
-@media (max-width: 1200px){
-    #maincontainer {
-         width: 100%;
-    }
-    #main{
-        float: none;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    #info{
-        float: none;
-        margin-left: auto;
-        margin-right: auto;
-    }
+	height: 97vh;
+	width: 100%;
+	display: inline-block;
 }
