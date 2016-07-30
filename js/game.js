@@ -6,19 +6,33 @@ future ideas:
 
 var UIModule = (function (){
 
+	function _pause(){
+		if(gameModule.isRunning() == false){
+			_setContent('status',"Game is running");
+			_setContent('started',"Press Enter to pause");
+			_setContent('pause', 'Pause');
+			gameModule.run();
+			Materialize.toast('game running', 1000);
+		}else {
+			_setContent('status',"Game is paused");
+			_setContent('started',"Press Enter to resume");
+			_setContent('pause', 'resume')
+			gameModule.pause();
+			Materialize.toast('game paused', 1000);
+		}
+	}
+
+	function _restart(){
+		_setContent('status',"Game is paused");
+		_setContent('started',"Press Enter to start game");
+		_setContent('pause', 'start');
+		gameModule.restart();
+	}
+
     //function for listener, starts/stops runnig game
     function _enterPressed(e){
         if(e.keyCode == 13){
-            if(gameModule.isRunning() == false){
-                _setContent('status',"Game is running");
-                _setContent('started',"Press enter to pause")
-                _setContent('Restart',"Restart")
-                gameModule.run();
-            }else {
-                _setContent('status',"Game is paused");
-                _setContent('started',"Press enter to resume");
-                gameModule.pause();
-            }
+			_pause();
         }
     }
 
@@ -53,11 +67,13 @@ var UIModule = (function (){
     return {
         initialize: function(){
             window.addEventListener("keydown",_enterPressed,false);
-            _getContent("Acorn").addEventListener("mousedown",gameModule.makeAcorn,false);
-            _getContent("Walker").addEventListener("mousedown",gameModule.makeWalker,false);
-            _getContent("Gun").addEventListener("mousedown",gameModule.makeGun,false);
-            _getContent("Engine").addEventListener("mousedown",gameModule.makeEngine,false);
-            _getContent("Restart").addEventListener("mousedown",gameModule.restart,false);
+            _getContent("Acorn").addEventListener("mousedown",gameModule.makeAcorn, false);
+            _getContent("Walker").addEventListener("mousedown",gameModule.makeWalker, false);
+            _getContent("Gun").addEventListener("mousedown",gameModule.makeGun, false);
+            _getContent("Engine").addEventListener("mousedown",gameModule.makeEngine, false);
+            _getContent("Restart").addEventListener("mousedown", _restart, false);
+
+			_getContent('pause').addEventListener('mousedown', _pause, false);
             gameModule.getCanvas().addEventListener("mousedown",_clickCell,false);
         },
         getContent: function(wrapper){
@@ -557,6 +573,7 @@ var gameModule  = (function () {
             _gameRunning = false;
             _resetGame();
             _paintFirstTime();
+			Materialize.toast('new world generated', 1000);
 
         },
         isRunning: function(){
